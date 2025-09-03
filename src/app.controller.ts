@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Controller, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 
-@Controller()
+@Controller('video')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(@InjectQueue("video") private readonly videoQueue: Queue) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Post("process")
+  async processVideo() {
+    await this.videoQueue.add('process',{fileName:"best-video", fileType:"mp4"})
+    return {
+      message:"Video processing job added to queue"
+    }
   }
+
 }
