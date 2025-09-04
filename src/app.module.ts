@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { BullModule } from '@nestjs/bullmq';
+import { VideoProcessor } from './video.worker';
 
 @Module({
   imports: [BullModule.forRoot({
@@ -15,6 +15,6 @@ import { BullModule } from '@nestjs/bullmq';
   BullModule.registerQueue({ name: 'video' })
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [VideoProcessor],
 })
 export class AppModule { }

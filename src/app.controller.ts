@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Post } from '@nestjs/common';
-import { AppService } from './app.service';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 
